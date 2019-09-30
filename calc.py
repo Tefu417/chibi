@@ -1,3 +1,4 @@
-s = int(input)
+def calc(s) :
+    return int(s)
 
-print(s)
+print(calc("1"))
