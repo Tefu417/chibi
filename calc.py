@@ -1,6 +1,8 @@
 def calc(s) :
-    a = int(s[0])
-    b = int(s[2])
-    return a+b
+    if(s.find("+") == -1) :
+        return int(s)
+    else :
+        nums = map(int, s.split('+'))
+        return sum(nums)
 
 print(calc("1+2"))
