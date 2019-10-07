@@ -2,6 +2,9 @@ import math
 
 class Q(object) :
     def __init__(self, a, b = 1) :
+        #この時点ではselfは空
+        #Q(a, b)のa, bをself.a, self.bと名付ける(初期化)
+        #bが省略されたときb = 1
         gcd = math.gcd(a, b)
         self.a = a // gcd
         self.b = b // gcd
