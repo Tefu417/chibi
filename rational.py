@@ -19,6 +19,11 @@ class Q(object) :
         b = self.b * q.b
         return Q(a, b)
 
+    def mul(self, q) :
+        a = self.a * q.a
+        b = self.b * q.b
+        return Q(a, b)
+
 q1 = Q(2, 5)
 q2 = Q(1, 3)
 print(q1.add(q2))
