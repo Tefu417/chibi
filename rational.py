@@ -1,3 +1,5 @@
+import math
+
 class Q(object) :
     def __init__(self, a, b = 1) :
         self.a = a
@@ -7,7 +9,8 @@ class Q(object) :
         if(self.b == 1) :
             return str(self.a)
         else :
-            return f'{self.a}/{self.b}'
+            gcd = math.gcd(self.a, self.b)
+            return f'{int(self.a / gcd)}/{int(self.b / gcd)}'
 
     def __add__(self, q) :  #self = q1, q = q2
         a = self.a * q.b + q.a * self.b
@@ -29,8 +32,9 @@ class Q(object) :
         b = self.b * q.a
         return Q(a, b)
 
-q1 = Q(1, 5)
+q1 = Q(1, 2)
 q2 = Q(1, 3)
+print(q1)
 print(q1 + q2)
 print(q1 - q2)
 print(q1 * q2)
