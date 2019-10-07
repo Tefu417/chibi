@@ -13,21 +13,29 @@ class Q(object) :
             return f'{int(self.a / gcd)}/{int(self.b / gcd)}'
 
     def __add__(self, q) :  #self = q1, q = q2
+        if(isinstance(q, int)) :
+            q = Q(q, 1)
         a = self.a * q.b + q.a * self.b
         b = self.b * q.b
         return Q(a, b)
 
     def __sub__(self, q) :
+        if(isinstance(q, int)) :
+            q = Q(q, 1)
         a = self.a * q.b - q.a * self.b
         b = self.b * q.b
         return Q(a, b)
 
     def __mul__(self, q) :
+        if(isinstance(q, int)) :
+            q = Q(q, 1)
         a = self.a * q.a
         b = self.b * q.b
         return Q(a, b)
 
     def __truediv__(self, q) :
+        if(isinstance(q, int)) :
+            q = Q(q, 1)
         a = self.a * q.b
         b = self.b * q.a
         return Q(a, b)
@@ -39,3 +47,6 @@ print(q1 + q2)
 print(q1 - q2)
 print(q1 * q2)
 print(q1 / q2)
+
+q = Q(1, 2)
+print(q / 2)
