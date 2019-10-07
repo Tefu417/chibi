@@ -1,5 +1,5 @@
 class Q(object) :
-    def __init__(self, a, b) :
+    def __init__(self, a, b = 1) :
         self.a = a
         self.b = b
 
@@ -9,7 +9,7 @@ class Q(object) :
         else :
             return f'{self.a}/{self.b}'
 
-    def add(self, q) :  #self = q1, q = q2
+    def __add__(self, q) :  #self = q1, q = q2
         a = self.a * q.b + q.a * self.b
         b = self.b * q.b
         return Q(a, b)
@@ -29,9 +29,9 @@ class Q(object) :
         b = self.b * q.a
         return Q(a, b)
 
-q1 = Q(2, 5)
+q1 = Q(1, 5)
 q2 = Q(1, 3)
-print(q1.add(q2))
+print(q1 + q2)
 print(q1.sub(q2))
 print(q1.mul(q2))
 print(q1.truediv(q2))
