@@ -3,8 +3,8 @@ import math
 class Q(object) :
     def __init__(self, a, b = 1) :
         gcd = math.gcd(a, b)
-        self.a = int(a / gcd)
-        self.b = int(b / gcd)
+        self.a = a // gcd
+        self.b = b // gcd
         
 
 
