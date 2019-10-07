@@ -2,11 +2,9 @@ import math
 
 class Q(object) :
     def __init__(self, a, b = 1) :
-        self.a = a
-        self.b = b
-        gcd = math.gcd(self.a, self.b)
-        self.a = int(self.a / gcd)
-        self.b = int(self.b / gcd)
+        gcd = math.gcd(a, b)
+        self.a = int(a / gcd)
+        self.b = int(b / gcd)
         
 
 
