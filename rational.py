@@ -4,13 +4,17 @@ class Q(object) :
     def __init__(self, a, b = 1) :
         self.a = a
         self.b = b
+        gcd = math.gcd(self.a, self.b)
+        self.a = int(self.a / gcd)
+        self.b = int(self.b / gcd)
+        
+
 
     def __repr__(self) :
         if(self.b == 1) :
             return str(self.a)
         else :
-            gcd = math.gcd(self.a, self.b)
-            return f'{int(self.a / gcd)}/{int(self.b / gcd)}'
+            return f'{self.a}/{self.b}'
 
     def __add__(self, q) :  #self = q1, q = q2
         if(isinstance(q, int)) :
@@ -40,7 +44,7 @@ class Q(object) :
         b = self.b * q.a
         return Q(a, b)
 
-q1 = Q(1, 2)
+q1 = Q(2, 4)
 q2 = Q(1, 3)
 print(q1)
 print(q1 + q2)
