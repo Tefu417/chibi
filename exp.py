@@ -16,7 +16,7 @@ class Add(object) :
         self.right = right
 
     def eval(self) :
-        return self.left + self.right
+        return self.left.eval() + self.right.eval()
 
-v = Add(1, 2)
+v = Add(Add(Val(1), Val(2)),Val(3))
 print(v.eval())
