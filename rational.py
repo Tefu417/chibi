@@ -2,9 +2,11 @@ import math
 
 class Q(object) :
     def __init__(self, a, b = 1) :
-        #この時点ではselfは空
-        #Q(a, b)のa, bをself.a, self.bと名付ける(初期化)
-        #bが省略されたときb = 1
+        # この時点ではselfは空
+        # なんの変数名が与えられているか分からないから 自分自身 = self
+        # 他言語では self の代わりに this
+        # Q(a, b)のa, bをself.a, self.bと名付ける(初期化)
+        # bが省略されたときb = 1
         gcd = math.gcd(a, b)
         self.a = a // gcd
         self.b = b // gcd
@@ -44,7 +46,13 @@ class Q(object) :
         return Q(a, b)
 
 q1 = Q(2, 4)
+# クラスでコンストラクタを呼んでいる
+# __init__ が呼ばれる
+# q1.a => 2
+# q1.b => 4
+# ↑　ここでは自分で名前を付けている（勝手には名前は付けられない）
 q2 = Q(1, 3)
+
 print(q1)
 print(q1 + q2)
 print(q1 - q2)
