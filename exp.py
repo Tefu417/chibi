@@ -1,6 +1,11 @@
 class Expr :
     def eval(self) :
         pass
+    
+def expr(x):
+    if not isinstance(x, Expr) :
+        x = Val(x)
+    return x
 
 class Val(Expr) :
     __slots__ = ["value"]
@@ -16,8 +21,8 @@ class Val(Expr) :
 class Add(Expr) :
     __slots__ = ["left", "right"]
     def __init__(self, left, right) :
-        self.left = left
-        self.right = right
+        self.left = expr(left)
+        self.right = expr(right)
 
     def eval(self) :
         return self.left.eval() + self.right.eval()
@@ -25,8 +30,8 @@ class Add(Expr) :
 class Mul(Expr) :
     __slots__ = ["left", "right"]
     def __init__(self, left, right) :
-        self.left = left
-        self.right = right
+        self.left = expr(left)
+        self.right = expr(right)
     
     def eval(self) :
         return self.left.eval() * self.right.eval()
@@ -34,8 +39,8 @@ class Mul(Expr) :
 class Sub(Expr) :
     __slots__ = ["left", "right"]
     def __init__(self, left, right) :
-        self.left = left
-        self.right = right
+        self.left = expr(left)
+        self.right = expr(right)
     
     def eval(self) :
         return self.left.eval() - self.right.eval()
@@ -43,12 +48,12 @@ class Sub(Expr) :
 class Div(Expr) :
     __slots__ = ["left", "right"]
     def __init__(self, left, right) :
-        self.left = left
-        self.right = right
+        self.left = expr(left)
+        self.right = expr(right)
         
     def eval(self) :
         return self.left.eval() // self.right.eval()
 
-assert isinstance(Val(1), Expr)
-assert isinstance(Div(Val(7), Val(2)), Expr)
+e = Add(1, Val(2))
+assert e.eval () == 3
 print("OK")
