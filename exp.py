@@ -32,16 +32,16 @@ class Mul(object) :
     def eval(self) :
         return self.left.eval() * self.right.eval()
 
-# class Mul(object) :
-#     __slots__ = ["left", "right"]
-#     def __init__(self, left, right) :
-#         self.left = left
-#         self.right = right
+class Sub(object) :
+    __slots__ = ["left", "right"]
+    def __init__(self, left, right) :
+        self.left = left
+        self.right = right
     
-#     def eval(self) :
-#         return self.left.eval() * self.right.eval()
+    def eval(self) :
+        return self.left.eval() - self.right.eval()
 
 
-v = Mul(Val(1), Val(2))
-assert v.eval() == 2
+v = Sub(Val(1), Val(2))
+assert v.eval() == -1
 print("OK")
