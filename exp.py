@@ -40,8 +40,17 @@ class Sub(object) :
     
     def eval(self) :
         return self.left.eval() - self.right.eval()
+    
+class Div(object) :
+    __slots__ = ["left", "right"]
+    def __init__(self, left, right) :
+        self.left = left
+        self.right = right
+        
+    def eval(self) :
+        return self.left.eval() // self.right.eval()
 
 
-v = Sub(Val(1), Val(2))
-assert v.eval() == -1
+v = Div(Val(7), Val(2))
+assert v.eval() == 3
 print("OK")
