@@ -15,8 +15,33 @@ class Add(object) :
         self.left = left
         self.right = right
 
+    # def expr(self) :
+    #     if not hasattr(self, "eval") :
+    #         self = Val(self)
+    #     return self
+
     def eval(self) :
         return self.left.eval() + self.right.eval()
 
-v = Add(Add(Val(1), Val(2)),Val(3))
-print(v.eval())
+class Mul(object) :
+    __slots__ = ["left", "right"]
+    def __init__(self, left, right) :
+        self.left = left
+        self.right = right
+    
+    def eval(self) :
+        return self.left.eval() * self.right.eval()
+
+# class Mul(object) :
+#     __slots__ = ["left", "right"]
+#     def __init__(self, left, right) :
+#         self.left = left
+#         self.right = right
+    
+#     def eval(self) :
+#         return self.left.eval() * self.right.eval()
+
+
+v = Mul(Val(1), Val(2))
+assert v.eval() == 2
+print("OK")
