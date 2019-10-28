@@ -1,26 +1,31 @@
-from exp import Val, Add
+from exp import *
 
 def parse(s: str) :
-    pos = s.find("+")
-    if(pos == -1) :
+    posA = s.find("+")
+    posM = s.find("*")
+
+    if(posA == -1 and posM == -1) :
         num = int(s)
         return Val(num)
-    else :
-        s1 = s[0 : pos]
-        s2 = s[pos+1 :]
-        if(s1.find("+") == -1 and s2.find("+") == -1) :
-            return Add(Val(int(s1)), Val(int(s2)))
-        else :
+
+    elif(posM != -1) :
+        s1 = s[0 : posM]
+        s2 = s[posM+1 :]
+    
+        if(posA != -1) :
+            s1 = s[0 : posA]
+            s2 = s[posA+1 :]
             return Add(parse(s1), parse(s2))
+        else :
+            return Mul(parse(s1), parse(s2))
+    
+    else :
+        s1 = s[0 : posA]
+        s2 = s[posA+1 :]
+        return Add(parse(s1), parse(s2))
+        
+        
 
 
-e = parse("1+2+3")
+e = parse("3+1*2")
 print(e)
-
-# s = "123+234"
-# pos = s.find("+")
-# print("pos", pos)
-
-# s1 = s[0 : pos]
-# s2 = s[pos+1 :]
-# print(s,s1, s2)
