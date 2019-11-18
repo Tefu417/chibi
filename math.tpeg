@@ -1,0 +1,12 @@
+
+example Zip 276-0032
+
+Zip = {
+    Value '-' Value
+    #Zip
+}
+
+DIGIT = [0-9]
+Value = { DIGIT+ #Int }
+//中カッコでくくると木のノードになる
+//＃は名前
