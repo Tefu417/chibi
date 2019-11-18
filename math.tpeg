@@ -1,17 +1,25 @@
 
-example Add 1+2+3+4+5
+example Expr 1
+example Expr 1+2
+example Expr 1+3*4
 
 Zip = {
     Value '-' Value
     #Zip
 }
 
-Add = {
-    Value ('+' Value)+
+Expr = {
+    Value '+' Expr
     #Add
 }
+    /{
+        Value '*' Expr
+        #Mul
+    }
+    / Value
 
 DIGIT = [0-9]
 Value = { DIGIT+ #Int }
 //中カッコでくくると木のノードになる
 //＃は名前
+
