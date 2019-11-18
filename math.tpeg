@@ -1,5 +1,5 @@
 
-example Add 1+2
+example Add 1+2+3+4+5
 
 Zip = {
     Value '-' Value
@@ -7,7 +7,7 @@ Zip = {
 }
 
 Add = {
-    Value '+' Value
+    Value ('+' Value)+
     #Add
 }
 
