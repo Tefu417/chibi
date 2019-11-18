@@ -1,5 +1,5 @@
 
-example Expr 1+2
+example Expr (1+2)*3
 example Expr 1*2
 example Expr 1*3+2
 example Expr 1+3*4
@@ -23,6 +23,7 @@ Prod = {
 
 DIGIT = [0-9]
 Value = { DIGIT+ #Int }
+    / '(' Expr ')'
 // 中カッコでくくると木のノードになる
 // ＃は名前
 // /はor
