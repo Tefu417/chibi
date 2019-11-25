@@ -4,27 +4,13 @@ example Expr 1*2
 example Expr 1*3+2
 example Expr 1+3*4
 
-Zip = {
-    Value '-' Value
-    #Zip
-}
+//Zip = { Value '-' Value #Zip }
 
-Expr = {
-    Prod '+' Prod
-    #Add
-}
-    / Prod
+Expr = { Prod '+' Prod #Add } / Prod
+Prod = { Value '*' Value #Mul } / Value
 
-Prod = {
-    Value '*' Value
-    #Mul
-}
-    / Value
-
-DIGIT = [0-9]
-Value = { DIGIT+ #Int }
-    / '(' Expr ')'
+Value = { DIGIT+ #Int } / '(' Expr ')'
 // 中カッコでくくると木のノードになる
 // ＃は名前
 // /はor
-
+DIGIT = [0-9]
