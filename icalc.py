@@ -17,7 +17,7 @@ def calc(t) :
     print(f'TODO {t.tag}')
     return 0
 
-
-t = parser('1+7*15')
+s = input('>>>')
+t = parser(s)
 print(repr(t))
 print(calc(t))
