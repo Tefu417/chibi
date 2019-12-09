@@ -133,6 +133,14 @@ class If(Expr) :
         else :
             return self.else_.eval(env)
 
+# e = Block(
+#     Assign('x', Val(0)),
+#     While(Lt(Var('x'), Val(10)),
+#         Assign('x', Add(Var('x'), Val(1)))),
+#     Var('x')
+# )
+# assert e.eval ({}) == 10
+
 class While(Expr) :
     __slots__ = ['cond', 'body']
     def __init__(self, cond, body) :
@@ -141,6 +149,9 @@ class While(Expr) :
     def eval(self, env) :
         while self.cond.eval(env) != 0 :
             self.body.eval(env)
+
+
+
         
 def conv(tree):
     if tree == 'Block':
@@ -202,12 +213,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-e = Block(
-    Assign('x', Val(0)),
-    While(Lt(Var('x'), Val(10)),
-        Assign('x', Add(Var('x'), Val(1)))),
-    Var('x')
-)
-assert e. eval ({}) == 10
 
