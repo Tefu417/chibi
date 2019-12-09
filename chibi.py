@@ -112,9 +112,43 @@ class Assign(Expr):
         env[self.name] = self.e.eval(env)
         return env[self.name]
 
+class Block(Expr) :
+    __slots__ = ['exprs']
+    def __init__(self, *exprs) :    # * で可変長個の引数を取ることができる
+        self.exprs = exprs  # list型でとる
+    def eval(self, env) :
+        for e in self.exprs :
+            e.eval(env)
+
+class If(Expr) :
+    __slots__ = ['cond', 'then', 'else']
+    def __init__(self, cond, then, else_) :
+        self.cond = cond
+        self.then = then
+        self.else_ = else_
+    def eval(self, env) :
+        yesorno = self.cond.eval(env)
+        if yesorno == 1 :
+            return self.then.eval(env)
+        else :
+            return self.else_.eval(env)
+
+class While(Expr) :
+    __slots__ = ['cond', 'body']
+    def __init__(self, cond, body) :
+        self.cond = cond
+        self.body = body
+    def eval(self, env) :
+        while self.cond.eval(env) != 0 :
+            self.body.eval(env)
+        
 def conv(tree):
     if tree == 'Block':
         return conv(tree[0])
+    if tree == 'If' :
+        return If(conv(tree[0]), conv(tree[1]), conv(tree[2]))
+    if tree == 'While' :
+        return While(conv(tree[0]), conv(tree[1]))
     if tree == 'Val' or tree == 'Int':
         return Val(int(str(tree)))
     if tree == 'Add':
@@ -169,6 +203,11 @@ def main():
 if __name__ == '__main__':
     main()
 
-e = Lt(Val(0), Val(1)) # 0 < 1
-assert e. eval ({}) == 1
+e = Block(
+    Assign('x', Val(0)),
+    While(Lt(Var('x'), Val(10)),
+        Assign('x', Add(Var('x'), Val(1)))),
+    Var('x')
+)
+assert e. eval ({}) == 10
 
