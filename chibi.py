@@ -133,6 +133,35 @@ class If(Expr) :
         else :
             return self.else_.eval(env)
 
+class Lambda(Expr) :
+    __slots__ = ['name', 'body']
+    def __init__(self, name, body) :
+        self.name = name
+        self.body = body
+    def __repr__(self) :
+        return f'λ{self.name} . {str(self.body)}'
+    def eval(self, env) :
+        pass
+
+f = Lambda('x', Add(Var('x'), 1)) # λx . x+1
+print(repr(f))
+
+class FuncApp(Expr) :
+    __slots__ = ['func', 'param']
+    def __init__(self, func: Expr, param) :
+        self.func = func
+        self.param = Expr.new(param)
+    def __repr__(self) :
+        return f'({repr(self.func)}) ({repr(self.param)})'
+    def eval(self, env) :
+        v = self.param.eval(env)    # パラメータを先に評価する
+        name = self.func.name   # Lambda　の変数名をとる
+        env[name] = v   # 環境から引数を渡す
+        return self.func.body.eval(env)
+   
+e = FuncApp(f, Add(1, 1))  # (λx . x+1) (1+1) ⇒　f(x) = x+1 f(1+1) と同じ
+print(e, '=>', e.eval({}))
+
 # e = Block(
 #     Assign('x', Val(0)),
 #     While(Lt(Var('x'), Val(10)),
@@ -141,25 +170,22 @@ class If(Expr) :
 # )
 # assert e.eval ({}) == 10
 
-class While(Expr) :
-    __slots__ = ['cond', 'body']
-    def __init__(self, cond, body) :
-        self.cond = cond
-        self.body = body
-    def eval(self, env) :
-        while self.cond.eval(env) != 0 :
-            self.body.eval(env)
+# class While(Expr) :
+#     __slots__ = ['cond', 'body']
+#     def __init__(self, cond, body) :
+#         self.cond = cond
+#         self.body = body
+#     def eval(self, env) :
+#         while self.cond.eval(env) != 0 :
+#             self.body.eval(env)
 
-
-
-        
 def conv(tree):
     if tree == 'Block':
         return conv(tree[0])
     if tree == 'If' :
         return If(conv(tree[0]), conv(tree[1]), conv(tree[2]))
-    if tree == 'While' :
-        return While(conv(tree[0]), conv(tree[1]))
+    # if tree == 'While' :
+    #     return While(conv(tree[0]), conv(tree[1]))
     if tree == 'Val' or tree == 'Int':
         return Val(int(str(tree)))
     if tree == 'Add':
@@ -197,7 +223,7 @@ def run(src: str, env: dict):
         print(repr(tree))
     else:
         e = conv(tree)
-        print('env', env)
+        # print('env', env)
         print(e.eval(env))
 
 def main():
